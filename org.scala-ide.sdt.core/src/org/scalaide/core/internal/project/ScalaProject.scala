@@ -62,6 +62,7 @@ import org.scalaide.util.eclipse.SWTUtils
 import org.scalaide.util.internal.SettingConverterUtil
 import java.nio.file.Paths
 import org.scalaide.ui.internal.preferences.hydra.HydraCompilerSettingsPage
+import org.scalaide.ui.internal.preferences.HydraSettings
 
 object ScalaProject {
   def apply(underlying: IProject): ScalaProject = {
@@ -437,13 +438,14 @@ class ScalaProject private(val underlying: IProject) extends ClasspathManagement
   }
 
   private def hydraCompilerSettings() = {
+    import org.scalaide.util.internal.SettingConverterUtil.convertNameToProperty
     val hydraArguments = scala.collection.mutable.ArrayBuffer.empty[String]
     
     if (effectiveScalaInstallation().version.unparse.contains("hydra")) {
-      val hydraStoreUserSetting = storage.getString(HydraCompilerSettingsPage.HydraStore)
-      val cpusUserSetting = storage.getString(HydraCompilerSettingsPage.Cpus)
-      val partitionFileUserSetting = storage.getString(HydraCompilerSettingsPage.PartitionFile)
-      val sourcePartitionerUserSetting = storage.getString(HydraCompilerSettingsPage.SourcePartitioner)
+      val hydraStoreUserSetting = storage.getString(convertNameToProperty(HydraSettings.hydraStore.name))
+      val cpusUserSetting = storage.getString(convertNameToProperty(HydraSettings.cpus.name))
+      val partitionFileUserSetting = storage.getString(convertNameToProperty(HydraSettings.partitionFile.name))
+      val sourcePartitionerUserSetting = storage.getString(convertNameToProperty(HydraSettings.sourcePartitioner.name))
       val rootProjectDir = underlying.getLocation().toFile().getAbsolutePath
       
       val hydraStore = if (hydraStoreUserSetting.isEmpty())
@@ -457,7 +459,7 @@ class ScalaProject private(val underlying: IProject) extends ClasspathManagement
       val partitionFile = if (partitionFileUserSetting.isEmpty())
           Paths.get(rootProjectDir, "src", "partition.hydra").toString()
         else
-          Paths.get(rootProjectDir, sourcePartitionerUserSetting).toString()
+          Paths.get(rootProjectDir, partitionFileUserSetting).toString()
           
       val hydraTag = Paths.get(underlying.getName, "main").toString()
       val hydraLogLocation = Paths.get(hydraStore, "hydra.log").toString()

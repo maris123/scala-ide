@@ -9,4 +9,5 @@
    <extension-point id="imagedescriptorselector" name="Image Descriptor Selector" schema="imagedescriptorselector.exsd"/>
    <extension-point id="openactionprovider" name="Open Action Provider" schema="openactionprovider.exsd"/>
    <extension-point id="masterprojdocprovider" name="Master Projection Document Provider" schema="masterprojdocprovider.exsd"/>
+   <extension-point id="hydra" name="Analysis Callback Factory" schema="hydra.exsd"/>
 </plugin>

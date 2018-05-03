@@ -79,7 +79,8 @@ Import-Package: org.eclipse.osgi.service.datalocation,
  scala.tools.eclipse.contribution.weaving.jdt.ui.actions;apply-aspects:=false,
  scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor;apply-aspects:=false,
  scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter;apply-aspects:=false,
- scala.tools.eclipse.contribution.weaving.jdt.jdi;apply-aspects:=false
+ scala.tools.eclipse.contribution.weaving.jdt.jdi;apply-aspects:=false,
+ scala.tools.eclipse.contribution.weaving.jdt.hydra;apply-aspects:=false
 Export-Package: org.scalaide.core,
  org.scalaide.core.compiler,
  org.scalaide.core.completion,

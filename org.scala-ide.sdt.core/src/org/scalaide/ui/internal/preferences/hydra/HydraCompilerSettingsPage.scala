@@ -1,17 +1,14 @@
 package org.scalaide.ui.internal.preferences.hydra
 
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer
+import org.eclipse.jface.preference.ComboFieldEditor
 import org.eclipse.jface.preference.FieldEditorPreferencePage
+import org.eclipse.jface.preference.IntegerFieldEditor
+import org.eclipse.jface.preference.StringFieldEditor
+import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.scalaide.core.IScalaPlugin
-import org.eclipse.jface.preference.ComboFieldEditor
-import org.eclipse.ui.IWorkbench
-import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer
-import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Control
-import org.eclipse.jface.preference.StringFieldEditor
-import org.scalaide.core.IScalaProject
 import org.scalaide.core.internal.compiler.hydra.SourcePartitioner
-import org.eclipse.jface.preference.IntegerFieldEditor
 
 class HydraCompilerSettingsPage extends FieldEditorPreferencePage with IWorkbenchPreferencePage {
 
@@ -26,13 +23,8 @@ class HydraCompilerSettingsPage extends FieldEditorPreferencePage with IWorkbenc
     addField(new StringFieldEditor(HydraCompilerSettingsPage.PartitionFile, "Partition File", getFieldEditorParent))
   }
   
-  override def createContents(parent: Composite): Control = {
-    val control = super.createContents(parent)
-
-    control
-  }
-  
-  def init(workbench: IWorkbench): Unit = {}
+  override def init(workbench: IWorkbench): Unit = {}
+ 
 }
 
 class HydraCompilerSettingsPageInitializer extends AbstractPreferenceInitializer {

@@ -24,7 +24,9 @@ Require-Bundle:
  org.eclipse.jdt.debug,
  org.eclipse.jdt.debug.ui,
  org.aspectj.runtime,
- org.eclipse.jdt.junit.core
+ org.eclipse.jdt.junit.core,
+ org.scala-lang.scala-library,
+ org.scala-ide.zinc.library
 Eclipse-SupplementBundle: 
  org.eclipse.core.resources,
  org.eclipse.debug.core,
@@ -36,7 +38,8 @@ Eclipse-SupplementBundle:
  org.eclipse.pde.ui,
  org.eclipse.jdt.groovy.core,
  org.eclipse.jdt.junit,
- org.eclipse.text
+ org.eclipse.text,
+ org.scala-ide.zinc.library
 Bundle-ActivationPolicy: lazy
 Export-Package: scala.tools.eclipse.contribution.weaving.jdt,scala.too
  ls.eclipse.contribution.weaving.jdt.builderoptions,scala.tools.eclips
@@ -54,7 +57,7 @@ Export-Package: scala.tools.eclipse.contribution.weaving.jdt,scala.too
  la.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter,sca
  la.tools.eclipse.contribution.weaving.pde.ui,scala.tools.eclipse.cont
  ribution.weaving.jdt.jdi,scala.tools.eclipse.contribution.weaving.jdt
- .ui.document
+ .ui.document,scala.tools.eclipse.contribution.weaving.jdt.hydra
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.eclipse.equinox.frameworkadmin,
  org.eclipse.equinox.internal.simpleconfigurator.manipulator,

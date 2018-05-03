@@ -25,14 +25,18 @@ class DirectoryScalaInstallation(val directory: IPath) extends ScalaInstallation
   final val scalaReflectPrefix = "scala-reflect"
   final val scalaCompilerPrefix = "scala-compiler"
   final val scalaSwingPrefix = "scala-swing"
-  final val hydraPrefix = "hydra_"
+  final val hydraScalaLibraryPrefix = "com.triplequote.scala-library"
+  final val hydraReflectPrefix = "com.triplequote.scala-reflect"
+  final val hydraCompilerPrefix = "com.triplequote.scala-compiler"
+  final val hydraPrefix = "com.triplequote.hydra"
   final val hydraBridgePrefix = "hydra-bridge_1_0"
-  final val scalaLoggingPrefix = "scala-logging_"
+  final val scalaLoggingPrefix = "com.typesafe.scala-logging.scala-logging_"
   final val scalaTestPrefix = "scalatest_"
-  final val logbackClassicPrefix = "logback-classic"
-  final val logbackCorePrefix = "logback-core"
+  final val scalaXmlPrefix = "org.scala-lang.modules.scala-xml_"
+  final val logbackClassicPrefix = "ch.qos.logback.logback-classic"
+  final val logbackCorePrefix = "ch.qos.logback.logback-core"
   final val zincTriplequotePrefix = "zinc"
-  final val slf4jPrefix = "slf4j-api-"
+  final val slf4jPrefix = "org.slf4j.slf4j-api"
 
   private val dirAsValidFile: Option[File] = {
     val f = directory.toFile()
@@ -105,10 +109,10 @@ class DirectoryScalaInstallation(val directory: IPath) extends ScalaInstallation
     }
   }
 
-  private val libraryCandidate = findScalaJars(scalaLibraryPrefix, None)
+  private val libraryCandidate = findScalaJars(scalaLibraryPrefix, None).orElse(findScalaJars(hydraScalaLibraryPrefix, None))
   private val presumedLibraryVersionString = libraryCandidate flatMap (l => versionOfFileName(l.classJar.toFile))
   private val versionCandidate: Option[ScalaVersion] = libraryCandidate.flatMap(l => extractVersion(l.classJar))
-  private val compilerCandidate = findScalaJars(scalaCompilerPrefix, presumedLibraryVersionString)  filter {
+  private val compilerCandidate = findScalaJars(scalaCompilerPrefix, presumedLibraryVersionString).orElse(findScalaJars(hydraCompilerPrefix, presumedLibraryVersionString))  filter {
     module => (versionCandidate forall (looksBinaryCompatible(_, module)))
     }
 
@@ -123,8 +127,8 @@ class DirectoryScalaInstallation(val directory: IPath) extends ScalaInstallation
 
   override lazy val extraJars = findScalaJars(List(scalaReflectPrefix,
       scalaSwingPrefix, hydraPrefix, hydraBridgePrefix, scalaLoggingPrefix,
-      scalaTestPrefix, logbackClassicPrefix, logbackCorePrefix,
-      zincTriplequotePrefix, slf4jPrefix), presumedLibraryVersionString).filter {
+      scalaTestPrefix, logbackClassicPrefix, logbackCorePrefix, scalaXmlPrefix,
+      zincTriplequotePrefix, slf4jPrefix, hydraReflectPrefix), presumedLibraryVersionString).filter {
     module => versionCandidate forall (looksBinaryCompatible(_, module))
     }
   override lazy val compiler = compilerCandidate.get
